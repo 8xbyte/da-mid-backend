@@ -3,7 +3,10 @@ using DaMid.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Configuration.AddJsonFile("appsettings.secrets.json");
+foreach (var file in Directory.EnumerateFiles(Environment.CurrentDirectory, "appsettings.*.json")) {
+    builder.Configuration.AddJsonFile(file);
+}
+
 builder.Services.Configure<IJwtOptions>(builder.Configuration.GetSection("Jwt"));
 
 builder.Services.AddScoped<IJwtService, JwtService>();
