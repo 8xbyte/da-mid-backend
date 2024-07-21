@@ -13,6 +13,7 @@ builder.Services.Configure<IJwtOptions>(builder.Configuration.GetSection("Jwt"))
 builder.Services.Configure<IDatabaseOptions>(builder.Configuration.GetSection("Database"));
 
 builder.Services.AddScoped<IJwtService, JwtService>();
+builder.Services.AddScoped<IUserService, UserService>();
 
 builder.Services.AddDbContext<ApplicationContext>(options => {
     options.UseMySQL(builder.Configuration.GetValue<string>("Database:ConnectionString"));
