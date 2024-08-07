@@ -13,7 +13,10 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 
 builder.Services.AddDbContext<ApplicationContext>(options => {
-    options.UseMySQL(builder.Configuration.GetValue<string>("Database:ConnectionString"));
+    var database = builder.Configuration.GetValue<string>("Database:ConnectionString");
+    if (database != null) {
+        options.UseMySQL(database);
+    }
 });
 builder.Services.AddControllers();
 builder.Services.AddSwaggerGen();
