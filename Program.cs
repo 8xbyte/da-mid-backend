@@ -5,10 +5,6 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-foreach (var file in Directory.EnumerateFiles(Environment.CurrentDirectory, "appsettings.*.json")) {
-    builder.Configuration.AddJsonFile(file);
-}
-
 builder.Services.Configure<IJwtOptions>(builder.Configuration.GetSection("Jwt"));
 builder.Services.Configure<IDatabaseOptions>(builder.Configuration.GetSection("Database"));
 
