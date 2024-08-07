@@ -7,7 +7,7 @@
 Properties
 
 # ASP.NET Core settings
-appsettings.*.json
+appsettings.json
 
 # dotenv files
 .env
