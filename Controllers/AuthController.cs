@@ -15,7 +15,7 @@ namespace DaMid.Controllers {
             var user = await _authService.Login(loginData.Login, loginData.Password);
 
             if (user == null) {
-                return Unauthorized(new {
+                return BadRequest(new {
                     Message = "Неверное имя пользователя или пароль"
                 });
             }
@@ -32,7 +32,7 @@ namespace DaMid.Controllers {
             var user = await _authService.Register(registerData.Login, registerData.Password);
 
             if (user == null) {
-                return Unauthorized(new {
+                return BadRequest(new {
                     Message = "Такой пользователь уже существует"
                 });
             }
