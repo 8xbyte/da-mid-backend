@@ -10,8 +10,8 @@ namespace DaMid.Services {
     public class AuthService(IUserService userService) : IAuthService {
         private readonly IUserService _userService = userService;
 
-        public async Task<UserModel?> Login(string email, string password) {
-            var user = await _userService.GetUserByEmail(email);
+        public async Task<UserModel?> Login(string login, string password) {
+            var user = await _userService.GetUserByLogin(login);
             if (user == null) {
                 return null;
             }
@@ -22,15 +22,17 @@ namespace DaMid.Services {
 
             return null;
         }
-        public async Task<UserModel?> Register(string email, string password) {
-            var user = await _userService.GetUserByEmail(email);
+        public async Task<UserModel?> Register(string login, string password) {
+            var user = await _userService.GetUserByLogin(login);
             if (user != null) {
                 return null;
             }
 
             var createdUser = await _userService.CreateUser(new UserModel {
-                Email = email,
-                Password = BCrypt.Net.BCrypt.HashPassword(password)
+                Login = login,
+                Role = UserRole.User,
+                Password = BCrypt.Net.BCrypt.HashPassword(password),
+                RegistrationDate = DateTime.UtcNow
             });
             return createdUser;
         }
