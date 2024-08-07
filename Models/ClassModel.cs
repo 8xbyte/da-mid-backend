@@ -6,6 +6,6 @@ namespace DaMid.Models {
     public class ClassModel : BaseModel {
         [Required]
         [StringLength(128)]
-        public string Name { get; set; }
+        public required string Name { get; set; }
     }
 }
