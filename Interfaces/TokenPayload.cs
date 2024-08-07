@@ -1,5 +1,5 @@
 namespace DaMid.Interfaces {
     public class ITokenPayload {
-        public int UserId { get; set; }
+        public required int UserId { get; set; }
     }
 }

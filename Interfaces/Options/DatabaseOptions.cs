@@ -1,5 +1,5 @@
 ﻿namespace DaMid.Interfaces.Options {
     public class IDatabaseOptions {
-        public string ConnectionString { get; set; }
+        public required string ConnectionString { get; set; }
     }
 }
