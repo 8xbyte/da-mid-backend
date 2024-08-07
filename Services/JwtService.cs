@@ -8,7 +8,7 @@ using Microsoft.IdentityModel.Tokens;
 namespace DaMid.Services {
     public interface IJwtService {
         public string GenerateToken(ITokenPayload payload);
-        public ITokenPayload VerifyToken(string token);
+        public ITokenPayload? VerifyToken(string token);
     }
     
     public class JwtService : IJwtService {
@@ -35,17 +35,21 @@ namespace DaMid.Services {
             return token;
         }
 
-        public ITokenPayload VerifyToken(string token) {
-            _jwtHandler.ValidateToken(token, new TokenValidationParameters() {
-                IssuerSigningKey = _securityKey,
-                ValidateAudience = false,
-                ValidateIssuer = false,
-            }, out SecurityToken securityToken);
+        public ITokenPayload? VerifyToken(string token) {
+            try {
+                _jwtHandler.ValidateToken(token, new TokenValidationParameters() {
+                    IssuerSigningKey = _securityKey,
+                    ValidateAudience = false,
+                    ValidateIssuer = false,
+                }, out SecurityToken securityToken);
 
-            var jwtSecurityToken = securityToken as JwtSecurityToken;
-            return new() {
-                UserId = Convert.ToInt32(jwtSecurityToken!.Payload[_jwtOptions.Fields.UserId])
-            };
+                var jwtSecurityToken = securityToken as JwtSecurityToken;
+                return new() {
+                    UserId = Convert.ToInt32(jwtSecurityToken!.Payload[_jwtOptions.Fields.UserId])
+                };
+            } catch {
+                return null;
+            }
         }
     }
 }
