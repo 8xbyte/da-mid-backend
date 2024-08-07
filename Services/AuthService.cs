@@ -3,15 +3,15 @@ using DaMid.Models;
 
 namespace DaMid.Services {
     public interface IAuthService {
-        public Task<UserModel?> Login(string email, string password);
-        public Task<UserModel?> Register(string email, string password);
+        public Task<UserModel?> LoginAsync(string email, string password);
+        public Task<UserModel?> RegisterAsync(string email, string password);
     }
 
     public class AuthService(IUserService userService) : IAuthService {
         private readonly IUserService _userService = userService;
 
-        public async Task<UserModel?> Login(string login, string password) {
-            var user = await _userService.GetUserByLogin(login);
+        public async Task<UserModel?> LoginAsync(string login, string password) {
+            var user = await _userService.GetUserByLoginAsync(login);
             if (user == null) {
                 return null;
             }
@@ -22,19 +22,18 @@ namespace DaMid.Services {
 
             return null;
         }
-        public async Task<UserModel?> Register(string login, string password) {
-            var user = await _userService.GetUserByLogin(login);
+        public async Task<UserModel?> RegisterAsync(string login, string password) {
+            var user = await _userService.GetUserByLoginAsync(login);
             if (user != null) {
                 return null;
             }
 
-            var createdUser = await _userService.CreateUser(new UserModel {
+            return await _userService.CreateUserAsync(new UserModel {
                 Login = login,
                 Role = UserRole.User,
                 Password = BCrypt.Net.BCrypt.HashPassword(password),
                 RegistrationDate = DateTime.UtcNow
             });
-            return createdUser;
         }
     }
 }
