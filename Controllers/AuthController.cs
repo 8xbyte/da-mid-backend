@@ -1,4 +1,5 @@
 ﻿using DaMid.Interfaces;
+using DaMid.Interfaces.Data;
 using DaMid.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,8 +11,8 @@ namespace DaMid.Controllers {
         private readonly IAuthService _authService = authService;
 
         [HttpPost("login")]
-        public async Task<ActionResult> Login(string login, string password) {
-            var user = await _authService.Login(login, password);
+        public async Task<ActionResult> Login([FromBody] ILoginData loginData) {
+            var user = await _authService.Login(loginData.Login, loginData.Password);
 
             if (user == null) {
                 return Unauthorized(new {
@@ -27,8 +28,8 @@ namespace DaMid.Controllers {
         }
 
         [HttpPost("register")]
-        public async Task<ActionResult> Register(string login, string password) {
-            var user = await _authService.Register(login, password);
+        public async Task<ActionResult> Register([FromBody] IRegisterData registerData) {
+            var user = await _authService.Register(registerData.Login, registerData.Password);
 
             if (user == null) {
                 return Unauthorized(new {
