@@ -44,7 +44,7 @@ namespace DaMid.Services {
 
             var jwtSecurityToken = securityToken as JwtSecurityToken;
             return new() {
-                UserId = Convert.ToInt32(jwtSecurityToken.Payload[_jwtOptions.Fields.UserId])
+                UserId = Convert.ToInt32(jwtSecurityToken!.Payload[_jwtOptions.Fields.UserId])
             };
         }
     }
