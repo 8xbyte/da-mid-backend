@@ -10,18 +10,18 @@ namespace DaMid.Models {
     public class UserModel : BaseModel {
         [Required]
         [Column("login")]
-        public string Login { get; set; }
+        public required string Login { get; set; }
 
         [Required]
         [Column("password")]
-        public string Password { get; set; }
+        public required string Password { get; set; }
 
         [Required]
         [Column("role")]
-        public UserRole Role { get; set; }
+        public required UserRole Role { get; set; }
 
         [Required]
         [Column("registration_date")]
-        public DateTime RegistrationDate { get; set; }
+        public required DateTime RegistrationDate { get; set; }
     }
 }
