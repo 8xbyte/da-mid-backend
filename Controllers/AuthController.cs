@@ -11,8 +11,8 @@ namespace DaMid.Controllers {
         private readonly IAuthService _authService = authService;
 
         [HttpPost("login")]
-        public async Task<ActionResult> Login([FromBody] ILoginData loginData) {
-            var user = await _authService.Login(loginData.Login, loginData.Password);
+        public async Task<ActionResult> LoginAsync([FromBody] ILoginData loginData) {
+            var user = await _authService.LoginAsync(loginData.Login, loginData.Password);
 
             if (user == null) {
                 return BadRequest(new {
@@ -28,8 +28,8 @@ namespace DaMid.Controllers {
         }
 
         [HttpPost("register")]
-        public async Task<ActionResult> Register([FromBody] IRegisterData registerData) {
-            var user = await _authService.Register(registerData.Login, registerData.Password);
+        public async Task<ActionResult> RegisterAsync([FromBody] IRegisterData registerData) {
+            var user = await _authService.RegisterAsync(registerData.Login, registerData.Password);
 
             if (user == null) {
                 return BadRequest(new {
