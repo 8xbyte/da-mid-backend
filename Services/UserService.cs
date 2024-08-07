@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 namespace DaMid.Services {
     public interface IUserService {
         public Task<UserModel?> GetUserById(int id);
-        public Task<UserModel?> GetUserByEmail(string email);
+        public Task<UserModel?> GetUserByLogin(string login);
         public Task<UserModel> CreateUser(UserModel user);
         public Task<UserModel> UpdateUser(UserModel user);
         public Task<UserModel> RemoveUser(UserModel user);
@@ -15,12 +15,10 @@ namespace DaMid.Services {
         private readonly ApplicationContext _context = context;
 
         public async Task<UserModel?> GetUserById(int id) {
-            var user = await _context.Users.FirstOrDefaultAsync(model => model.Id == id);
-            return user;
+            return await _context.Users.FirstOrDefaultAsync(model => model.Id == id);
         }
-        public async Task<UserModel?> GetUserByEmail(string email) {
-            var user = await _context.Users.FirstOrDefaultAsync(model => model.Email == email);
-            return user;
+        public async Task<UserModel?> GetUserByLogin(string login) {
+            return await _context.Users.FirstOrDefaultAsync(model => model.Login == login);
         }
         public async Task<UserModel> CreateUser(UserModel userModel) {
             var user = await _context.Users.AddAsync(userModel);
