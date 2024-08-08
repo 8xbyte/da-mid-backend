@@ -2,8 +2,8 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DaMid.Models {
-    [Table("classes")]
-    public class ClassModel : BaseModel {
+    [Table("subjects")]
+    public class SubjectModel : BaseModel {
         [Required]
         [StringLength(256)]
         [Column("name")]
