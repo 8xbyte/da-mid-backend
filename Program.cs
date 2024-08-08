@@ -13,6 +13,7 @@ builder.Services.AddScoped<IJwtService, JwtService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IClassService, ClassService>();
+builder.Services.AddScoped<IAudienceService, AudienceService>();
 
 builder.Services.AddDbContext<ApplicationContext>(options => {
     var database = builder.Configuration.GetValue<string>("Database:ConnectionString");
