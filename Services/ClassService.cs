@@ -28,7 +28,7 @@ namespace DaMid.Services {
         }
 
         public async Task<List<ClassModel>> SearchClassesAsync(string name, int limit) {
-            return await _context.Classes.Where(model => EF.Functions.Like(model.Name.ToLower(), $"%{name.ToLower()}%")).Take(limit).ToListAsync();
+            return await _context.Classes.Where(model => EF.Functions.Like(model.Name.ToLower(), $"%{name.ToLower()}%")).OrderBy(model => model.Id).Take(limit).ToListAsync();
         }
 
         public async Task<ClassModel> AddClassAsync(ClassModel classModel) {
