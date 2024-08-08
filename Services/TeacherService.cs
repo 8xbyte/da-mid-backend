@@ -7,6 +7,7 @@ namespace DaMid.Services {
         public Task<TeacherModel?> GetTeacherByIdAsync(int id);
         public Task<TeacherModel?> GetTeacherByNameAsync(string name);
         public Task<TeacherModel?> GetTeacherBySurnameAsync(string surname);
+        public Task<TeacherModel?> GetTeacherByNameAndSurnameAsync(string name, string surname);
         public Task<List<TeacherModel>> GetTeachersAsync(int offset, int limit);
         public Task<List<TeacherModel>> SearchTeachersAsync(string name, string surname, int limit);
         public Task<TeacherModel> AddTeacherAsync(TeacherModel teacherModel);
@@ -26,6 +27,10 @@ namespace DaMid.Services {
 
         public async Task<TeacherModel?> GetTeacherBySurnameAsync(string surname) {
             return await _context.Teachers.FirstOrDefaultAsync(model => model.Surname == surname);
+        }
+
+        public async Task<TeacherModel?> GetTeacherByNameAndSurnameAsync(string name, string surname) {
+            return await _context.Teachers.FirstOrDefaultAsync(model => model.Name == name && model.Surname == surname);
         }
 
         public async Task<List<TeacherModel>> GetTeachersAsync(int offset, int limit) {
