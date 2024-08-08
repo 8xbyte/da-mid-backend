@@ -5,7 +5,7 @@ namespace DaMid.Models {
     [Table("audiences")]
     public class AudienceModel : BaseModel {
         [Required]
-        [StringLength(128)]
+        [StringLength(16)]
         [Column("name")]
         public required string Name { get; set; }
     }
