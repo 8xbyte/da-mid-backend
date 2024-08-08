@@ -5,6 +5,7 @@ namespace DaMid.Interfaces.Options {
         public required double Expiration { get; set; }
         public class IFieldsOptions {
             public required string UserId { get; set; }
+            public required string Role { get; set; }
             public required string Expiration { get; set; }
         }
         public required IFieldsOptions Fields { get; set; }
