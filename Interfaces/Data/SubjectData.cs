@@ -1,9 +1,9 @@
 namespace DaMid.Interfaces.Data {
-    public class IAddClassData {
+    public class IAddSubjectData {
         public required string Name { get; set; }
     }
 
-    public class IRemoveClassData {
+    public class IRemoveSubjectData {
         public required int Id { get; set; }
     }
 }
