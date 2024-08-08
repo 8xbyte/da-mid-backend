@@ -9,5 +9,6 @@ namespace DaMid.Contexts {
         public DbSet<SubjectModel> Subjects { get; set; }
         public DbSet<AudienceModel> Audiences { get; set; }
         public DbSet<TeacherModel> Teachers { get; set; }
+        public DbSet<ClassModel> Classes { get; set; }
     }
 }
