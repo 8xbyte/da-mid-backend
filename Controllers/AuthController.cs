@@ -22,7 +22,8 @@ namespace DaMid.Controllers {
 
             return Ok(new {
                 Token = _jwtService.GenerateToken(new ITokenPayload {
-                    UserId = user.Id
+                    UserId = user.Id,
+                    Role = user.Role
                 })
             });
         }
@@ -39,7 +40,8 @@ namespace DaMid.Controllers {
 
             return Ok(new {
                 Token = _jwtService.GenerateToken(new ITokenPayload {
-                    UserId = user.Id
+                    UserId = user.Id,
+                    Role = user.Role
                 })
             });
         }
