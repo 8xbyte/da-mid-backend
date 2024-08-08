@@ -6,7 +6,7 @@ namespace DaMid.Contexts {
         public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options) { }
 
         public DbSet<UserModel> Users { get; set; }
-        public DbSet<ClassModel> Classes { get; set; }
+        public DbSet<SubjectModel> Subjects { get; set; }
         public DbSet<AudienceModel> Audiences { get; set; }
         public DbSet<TeacherModel> Teachers { get; set; }
     }
