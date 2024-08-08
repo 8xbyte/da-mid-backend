@@ -11,7 +11,6 @@ namespace DaMid.Controllers {
         private readonly IClassService _classService = classService;
 
         [HttpGet("get")]
-        [Authorization(UserRole.User)]
         public async Task<ActionResult> GetClassesAsync(int offset = 0, int limit = 10) {
             return Ok(new {
                 Status = "ok",
@@ -20,7 +19,6 @@ namespace DaMid.Controllers {
         }
 
         [HttpGet("search")]
-        [Authorization(UserRole.User)]
         public async Task<ActionResult> SearchClassesAsync(string name, int limit = 10) {
             return Ok(new {
                 Status = "ok",
