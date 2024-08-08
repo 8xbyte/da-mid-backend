@@ -6,6 +6,8 @@ namespace DaMid.Services {
     public interface IClassService {
         public Task<ClassModel?> GetClassByIdAsync(int id);
         public Task<ClassModel?> GetClassByNameAsync(string name);
+        public Task<List<ClassModel>> GetClassesAsync(int offset, int limit);
+        public Task<List<ClassModel>> SearchClassesAsync(string name, int limit);
         public Task<ClassModel> AddClassAsync(ClassModel classModel);
         public Task<ClassModel> RemoveClassAsync(ClassModel classModel);
     }
@@ -19,6 +21,14 @@ namespace DaMid.Services {
 
         public async Task<ClassModel?> GetClassByNameAsync(string name) {
             return await _context.Classes.FirstOrDefaultAsync(model => model.Name == name);
+        }
+
+        public async Task<List<ClassModel>> GetClassesAsync(int offset, int limit) {
+            return await _context.Classes.OrderBy(model => model.Id).Skip(offset).Take(limit).ToListAsync();
+        }
+
+        public async Task<List<ClassModel>> SearchClassesAsync(string name, int limit) {
+            return await _context.Classes.Where(model => EF.Functions.Like(model.Name.ToLower(), $"%{name.ToLower()}%")).Take(limit).ToListAsync();
         }
 
         public async Task<ClassModel> AddClassAsync(ClassModel classModel) {
