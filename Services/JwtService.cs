@@ -2,6 +2,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using DaMid.Interfaces;
 using DaMid.Interfaces.Options;
+using DaMid.Models;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
@@ -29,6 +30,7 @@ namespace DaMid.Services {
             var jwtPayload = new JwtPayload() {
                 { _jwtOptions.Fields.UserId, Convert.ToInt32(payload.UserId) },
                 { _jwtOptions.Fields.Expiration, DateTime.UtcNow.AddSeconds(_jwtOptions.Expiration).Ticks },
+                { _jwtOptions.Fields.Role, Convert.ToInt32(payload.Role) },
             };
             var jwtToken = new JwtSecurityToken(_jwtHeader, jwtPayload);
             var token = _jwtHandler.WriteToken(jwtToken);
@@ -45,7 +47,8 @@ namespace DaMid.Services {
 
                 var jwtSecurityToken = securityToken as JwtSecurityToken;
                 return new() {
-                    UserId = Convert.ToInt32(jwtSecurityToken!.Payload[_jwtOptions.Fields.UserId])
+                    UserId = Convert.ToInt32(jwtSecurityToken!.Payload[_jwtOptions.Fields.UserId]),
+                    Role = (UserRole)Convert.ToInt32(jwtSecurityToken!.Payload[_jwtOptions.Fields.Role])
                 };
             } catch {
                 return null;
