@@ -1,48 +1,48 @@
 ﻿using DaMid.Interfaces;
 using DaMid.Interfaces.Data;
+using DaMid.Interfaces.Options;
 using DaMid.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 
 namespace DaMid.Controllers {
     [Route("api/auth")]
     [ApiController]
-    public class AuthController(IJwtService jwtService, IAuthService authService) : ControllerBase {
-        private readonly IJwtService _jwtService = jwtService;
+    public class AuthController(IAuthService authService, IOptions<ICookieOptions> cookieOptions) : ControllerBase {
         private readonly IAuthService _authService = authService;
+        private readonly ICookieOptions _cookieOptions = cookieOptions.Value;
 
         [HttpPost("login")]
         public async Task<ActionResult> LoginAsync([FromBody] ILoginData loginData) {
-            var user = await _authService.LoginAsync(loginData.Login, loginData.Password);
-
-            if (user == null) {
+            var token = await _authService.LoginAsync(loginData.Login, loginData.Password);
+            if (token == null) {
                 return BadRequest(new {
+                    Status = "error",
                     Message = "Неверное имя пользователя или пароль"
                 });
             }
 
+            HttpContext.Response.Cookies.Append(_cookieOptions.JwtToken, token);
+
             return Ok(new {
-                Token = _jwtService.GenerateToken(new ITokenPayload {
-                    UserId = user.Id,
-                    Role = user.Role
-                })
+                Status = "ok"
             });
         }
 
         [HttpPost("register")]
         public async Task<ActionResult> RegisterAsync([FromBody] IRegisterData registerData) {
-            var user = await _authService.RegisterAsync(registerData.Login, registerData.Password);
-
-            if (user == null) {
+            var token = await _authService.RegisterAsync(registerData.Login, registerData.Password);
+            if (token == null) {
                 return BadRequest(new {
+                    Status = "error",
                     Message = "Такой пользователь уже существует"
                 });
             }
 
+            HttpContext.Response.Cookies.Append(_cookieOptions.JwtToken, token);
+
             return Ok(new {
-                Token = _jwtService.GenerateToken(new ITokenPayload {
-                    UserId = user.Id,
-                    Role = user.Role
-                })
+                Status = "ok"
             });
         }
     }
