@@ -10,10 +10,12 @@ namespace DaMid.Models {
     public class UserModel : BaseModel {
         [Required]
         [Column("login")]
+        [StringLength(32)]
         public required string Login { get; set; }
 
         [Required]
         [Column("password")]
+        [StringLength(64)]
         public required string Password { get; set; }
 
         [Required]
