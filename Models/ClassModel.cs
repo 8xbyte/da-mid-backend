@@ -5,7 +5,7 @@ namespace DaMid.Models {
     [Table("classes")]
     public class ClassModel : BaseModel {
         [Required]
-        [StringLength(128)]
+        [StringLength(256)]
         [Column("name")]
         public required string Name { get; set; }
     }
