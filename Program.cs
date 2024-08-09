@@ -16,6 +16,7 @@ builder.Services.AddScoped<ISubjectService, SubjectService>();
 builder.Services.AddScoped<IAudienceService, AudienceService>();
 builder.Services.AddScoped<ITeacherService, TeacherService>();
 builder.Services.AddScoped<IGroupService, GroupService>();
+builder.Services.AddScoped<IClassService, ClassService>();
 
 builder.Services.AddDbContext<ApplicationContext>(options => {
     var database = builder.Configuration.GetValue<string>("Database:ConnectionString");
