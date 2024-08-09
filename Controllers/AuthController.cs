@@ -1,5 +1,4 @@
-﻿using DaMid.Interfaces;
-using DaMid.Interfaces.Data;
+﻿using DaMid.Interfaces.Data;
 using DaMid.Interfaces.Options;
 using DaMid.Services;
 using Microsoft.AspNetCore.Mvc;
