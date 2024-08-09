@@ -20,7 +20,7 @@ builder.Services.AddScoped<IGroupService, GroupService>();
 builder.Services.AddDbContext<ApplicationContext>(options => {
     var database = builder.Configuration.GetValue<string>("Database:ConnectionString");
     if (database != null) {
-        options.UseMySQL(database);
+        options.UseMySql(database, new MySqlServerVersion(new Version()));
     }
 });
 builder.Services.AddControllers();
