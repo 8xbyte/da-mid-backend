@@ -1,6 +1,6 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
-using MySql.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Metadata;
 
 #nullable disable
 
@@ -17,7 +17,7 @@ namespace DaMid.Migrations
                 columns: table => new
                 {
                     id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                        .Annotation("MySQL:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     subject_id = table.Column<int>(type: "int", nullable: false),
                     audience_id = table.Column<int>(type: "int", nullable: false),
                     teacher_id = table.Column<int>(type: "int", nullable: false),

@@ -1,6 +1,6 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
-using MySql.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Metadata;
 
 #nullable disable
 
@@ -20,7 +20,7 @@ namespace DaMid.Migrations
                 columns: table => new
                 {
                     id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                        .Annotation("MySQL:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     name = table.Column<string>(type: "varchar(128)", maxLength: 128, nullable: false)
                 },
                 constraints: table =>
@@ -34,7 +34,7 @@ namespace DaMid.Migrations
                 columns: table => new
                 {
                     id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                        .Annotation("MySQL:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     login = table.Column<string>(type: "varchar(32)", maxLength: 32, nullable: false),
                     password = table.Column<string>(type: "varchar(64)", maxLength: 64, nullable: false),
                     role = table.Column<int>(type: "int", nullable: false),
