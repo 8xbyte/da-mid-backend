@@ -31,16 +31,16 @@ namespace DaMid.Services {
             return await _context.Subjects.Where(model => EF.Functions.Like(model.Name.ToLower(), $"%{name.ToLower()}%")).OrderBy(model => model.Id).Take(limit).ToListAsync();
         }
 
-        public async Task<SubjectModel> AddSubjectAsync(SubjectModel classModel) {
-            var _class = await _context.Subjects.AddAsync(classModel);
+        public async Task<SubjectModel> AddSubjectAsync(SubjectModel subjectModel) {
+            var subject = await _context.Subjects.AddAsync(subjectModel);
             await _context.SaveChangesAsync();
-            return _class.Entity;
+            return subject.Entity;
         }
 
-        public async Task<SubjectModel> RemoveSubjectAsync(SubjectModel classModel) {
-            var _class = _context.Subjects.Remove(classModel);
+        public async Task<SubjectModel> RemoveSubjectAsync(SubjectModel subjectModel) {
+            var subject = _context.Subjects.Remove(subjectModel);
             await _context.SaveChangesAsync();
-            return _class.Entity;
+            return subject.Entity;
         }
     }
 }
