@@ -11,13 +11,18 @@ namespace DaMid.Models {
 
         [Required]
         [Column("audience_id")]
-        public int AudienceId { get; set;}
+        public int AudienceId { get; set; }
         public AudienceModel Audience { get; set; }
 
         [Required]
         [Column("teacher_id")]
-        public int TeacherId { get; set;}
+        public int TeacherId { get; set; }
         public TeacherModel Teacher { get; set; }
+
+        [Required]
+        [Column("group_id")]
+        public int GroupId { get; set; }
+        public GroupModel Group { get; set; }
 
         [Required]
         [Column("date")]
