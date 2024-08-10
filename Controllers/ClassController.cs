@@ -29,7 +29,7 @@ namespace DaMid.Controllers {
             if (subject == null) {
                 return BadRequest(new {
                     Status = "error",
-                    Subject = "Предмет не найден"
+                    Message = "Предмет не найден"
                 });
             }
 
@@ -37,7 +37,7 @@ namespace DaMid.Controllers {
             if (audience == null) {
                 return BadRequest(new {
                     Status = "error",
-                    Subject = "Аудитория не найдена"
+                    Message = "Аудитория не найдена"
                 });
             }
 
@@ -45,7 +45,7 @@ namespace DaMid.Controllers {
             if (teacher == null) {
                 return BadRequest(new {
                     Status = "error",
-                    Subject = "Преподаватель не найден"
+                    Message = "Преподаватель не найден"
                 });
             }
 
@@ -53,7 +53,7 @@ namespace DaMid.Controllers {
             if (group == null) {
                 return BadRequest(new {
                     Status = "error",
-                    Subject = "Группа не найден"
+                    Message = "Группа не найден"
                 });
             }
 
