@@ -30,10 +30,12 @@ namespace DaMid.Attributes {
             }
 
             if (tokenPayload!.Role < role) {
-                context.Result = new BadRequestObjectResult(new {
+                context.Result = new ObjectResult(new {
                     Status = "error",
                     Result = "access denied"
-                }); return;
+                }) {
+                    StatusCode = StatusCodes.Status403Forbidden
+                }; return;
             }
 
             context.HttpContext.Items.Add(cookieOptions.JwtToken, tokenPayload);
