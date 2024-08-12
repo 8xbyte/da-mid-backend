@@ -37,12 +37,11 @@ namespace DaMid.Controllers {
                 });
             }
 
-            await _subjectService.AddSubjectAsync(new SubjectModel {
-                Name = classData.Name
-            });
-
             return Ok(new {
-                Status = "ok"
+                Status = "ok",
+                Result = await _subjectService.AddSubjectAsync(new SubjectModel {
+                    Name = classData.Name
+                })
             });
         }
 
@@ -57,10 +56,9 @@ namespace DaMid.Controllers {
                 });
             }
 
-            await _subjectService.RemoveSubjectAsync(_class);
-
             return Ok(new {
-                Status = "ok"
+                Status = "ok",
+                Result = await _subjectService.RemoveSubjectAsync(_class)
             });
         }
     }
