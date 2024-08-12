@@ -57,17 +57,16 @@ namespace DaMid.Controllers {
                 });
             }
 
-            await _classService.AddClassAsync(new ClassModel {
-                SubjectId = subject.Id,
-                AudienceId = audience.Id,
-                TeacherId = teacher.Id,
-                GroupId = group.Id,
-                Date = classData.Date,
-                Time = classData.Time
-            });
-
             return Ok(new {
-                Status = "ok"
+                Status = "ok",
+                Result = await _classService.AddClassAsync(new ClassModel {
+                    SubjectId = subject.Id,
+                    AudienceId = audience.Id,
+                    TeacherId = teacher.Id,
+                    GroupId = group.Id,
+                    Date = classData.Date,
+                    Time = classData.Time
+                })
             });
         }
 
@@ -82,10 +81,9 @@ namespace DaMid.Controllers {
                 });
             }
 
-            await _classService.RemoveClassAsync(_class);
-
             return Ok(new {
-                Status = "ok"
+                Status = "ok",
+                Result = await _classService.RemoveClassAsync(_class)
             });
         }
     }
