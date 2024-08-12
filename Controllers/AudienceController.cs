@@ -37,12 +37,11 @@ namespace DaMid.Controllers {
                 });
             }
 
-            await _audienceService.AddAudienceAsync(new AudienceModel {
-                Name = audienceData.Name
-            });
-
             return Ok(new {
-                Status = "ok"
+                Status = "ok",
+                Result = await _audienceService.AddAudienceAsync(new AudienceModel {
+                    Name = audienceData.Name
+                })
             });
         }
 
@@ -57,10 +56,9 @@ namespace DaMid.Controllers {
                 });
             }
 
-            await _audienceService.RemoveAudienceAsync(audience);
-
             return Ok(new {
-                Status = "ok"
+                Status = "ok",
+                Result = await _audienceService.RemoveAudienceAsync(audience)
             });
         }
     }
