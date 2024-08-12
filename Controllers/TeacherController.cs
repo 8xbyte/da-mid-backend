@@ -37,13 +37,12 @@ namespace DaMid.Controllers {
                 });
             }
 
-            await _teacherService.AddTeacherAsync(new TeacherModel {
-                Name = teacherData.Name,
-                Surname = teacherData.Surname
-            });
-
             return Ok(new {
-                Status = "ok"
+                Status = "ok",
+                Result = await _teacherService.AddTeacherAsync(new TeacherModel {
+                    Name = teacherData.Name,
+                    Surname = teacherData.Surname
+                })
             });
         }
 
@@ -58,10 +57,9 @@ namespace DaMid.Controllers {
                 });
             }
 
-            await _teacherService.RemoveTeacherAsync(teacher);
-
             return Ok(new {
-                Status = "ok"
+                Status = "ok",
+                Result = await _teacherService.RemoveTeacherAsync(teacher)
             });
         }
     }
