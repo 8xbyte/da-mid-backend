@@ -24,11 +24,21 @@ builder.Services.AddDbContext<ApplicationContext>(options => {
         options.UseMySql(database, new MySqlServerVersion(new Version()));
     }
 });
-builder.Services.AddControllers();
 builder.Services.AddSwaggerGen();
+builder.Services.AddCors();
+builder.Services.AddControllers();
 
 var app = builder.Build();
 
+app.UseCors(options => {
+    options.AllowAnyHeader();
+    options.AllowAnyMethod();
+    options.AllowCredentials();
+    var origins = builder.Configuration.GetSection("Cors:Origins").Get<string[]>();
+    if (origins != null) {
+        options.WithOrigins(origins);
+    }
+});
 app.MapControllers();
 app.UseSwaggerUI();
 app.UseSwagger();
