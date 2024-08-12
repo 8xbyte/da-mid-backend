@@ -7,7 +7,7 @@ namespace DaMid.Services {
         public Task<SubjectModel?> GetSubjectByIdAsync(int id);
         public Task<SubjectModel?> GetSubjectByNameAsync(string name);
         public Task<List<SubjectModel>> GetSubjectsAsync(int offset, int limit);
-        public Task<List<SubjectModel>> SearchSubjectsAsync(string name, int limit);
+        public Task<List<SubjectModel>> SearchSubjectsAsync(string name, int offset, int limit);
         public Task<SubjectModel> AddSubjectAsync(SubjectModel classModel);
         public Task<SubjectModel> RemoveSubjectAsync(SubjectModel classModel);
     }
@@ -27,8 +27,8 @@ namespace DaMid.Services {
             return await _context.Subjects.OrderBy(model => model.Id).Skip(offset).Take(limit).ToListAsync();
         }
 
-        public async Task<List<SubjectModel>> SearchSubjectsAsync(string name, int limit) {
-            return await _context.Subjects.Where(model => EF.Functions.Like(model.Name.ToLower(), $"%{name.ToLower()}%")).OrderBy(model => model.Id).Take(limit).ToListAsync();
+        public async Task<List<SubjectModel>> SearchSubjectsAsync(string name, int offset, int limit) {
+            return await _context.Subjects.Where(model => EF.Functions.Like(model.Name.ToLower(), $"%{name.ToLower()}%")).OrderBy(model => model.Id).Skip(offset).Take(limit).ToListAsync();
         }
 
         public async Task<SubjectModel> AddSubjectAsync(SubjectModel subjectModel) {
