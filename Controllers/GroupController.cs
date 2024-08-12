@@ -37,12 +37,11 @@ namespace DaMid.Controllers {
                 });
             }
 
-            await _groupService.AddGroupAsync(new GroupModel {
-                Name = groupData.Name
-            });
-
             return Ok(new {
-                Status = "ok"
+                Status = "ok",
+                Result = await _groupService.AddGroupAsync(new GroupModel {
+                    Name = groupData.Name
+                })
             });
         }
 
@@ -57,10 +56,9 @@ namespace DaMid.Controllers {
                 });
             }
 
-            await _groupService.RemoveGroupAsync(group);
-
             return Ok(new {
-                Status = "ok"
+                Status = "ok",
+                Result = await _groupService.RemoveGroupAsync(group)
             });
         }
     }
