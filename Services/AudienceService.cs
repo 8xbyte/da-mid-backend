@@ -7,7 +7,7 @@ namespace DaMid.Services {
         public Task<AudienceModel?> GetAudienceByIdAsync(int id);
         public Task<AudienceModel?> GetAudienceByNameAsync(string name);
         public Task<List<AudienceModel>> GetAudiencesAsync(int offset, int limit);
-        public Task<List<AudienceModel>> SearchAudiencesAsync(string name, int limit);
+        public Task<List<AudienceModel>> SearchAudiencesAsync(string name, int offset, int limit);
         public Task<AudienceModel> AddAudienceAsync(AudienceModel audienceModel);
         public Task<AudienceModel> RemoveAudienceAsync(AudienceModel audienceModel);
     }
@@ -27,8 +27,8 @@ namespace DaMid.Services {
             return await _context.Audiences.OrderBy(model => model.Id).Skip(offset).Take(limit).ToListAsync();
         }
         
-        public async Task<List<AudienceModel>> SearchAudiencesAsync(string name, int limit) {
-            return await _context.Audiences.Where(model => EF.Functions.Like(model.Name.ToLower(), $"%{name.ToLower()}%")).OrderBy(model => model.Id).Take(limit).ToListAsync();
+        public async Task<List<AudienceModel>> SearchAudiencesAsync(string name, int offset, int limit) {
+            return await _context.Audiences.Where(model => EF.Functions.Like(model.Name.ToLower(), $"%{name.ToLower()}%")).OrderBy(model => model.Id).Skip(offset).Take(limit).ToListAsync();
         }
         
         public async Task<AudienceModel> AddAudienceAsync(AudienceModel audienceModel) {
