@@ -21,7 +21,11 @@ namespace DaMid.Controllers {
                 });
             }
 
-            HttpContext.Response.Cookies.Append(_cookieOptions.JwtToken, token);
+            HttpContext.Response.Cookies.Append(_cookieOptions.JwtToken, token, new CookieOptions {
+                Expires = DateTime.Now.AddSeconds(_cookieOptions.Expiration),
+                Domain = _cookieOptions.Domain,
+                HttpOnly = true
+            });
 
             return Ok(new {
                 Status = "ok"
@@ -38,7 +42,11 @@ namespace DaMid.Controllers {
                 });
             }
 
-            HttpContext.Response.Cookies.Append(_cookieOptions.JwtToken, token);
+            HttpContext.Response.Cookies.Append(_cookieOptions.JwtToken, token, new CookieOptions {
+                Expires = DateTime.Now.AddSeconds(_cookieOptions.Expiration),
+                Domain = _cookieOptions.Domain,
+                HttpOnly = true
+            });
 
             return Ok(new {
                 Status = "ok"
