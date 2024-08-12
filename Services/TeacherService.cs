@@ -9,7 +9,7 @@ namespace DaMid.Services {
         public Task<TeacherModel?> GetTeacherBySurnameAsync(string surname);
         public Task<TeacherModel?> GetTeacherByNameAndSurnameAsync(string name, string surname);
         public Task<List<TeacherModel>> GetTeachersAsync(int offset, int limit);
-        public Task<List<TeacherModel>> SearchTeachersAsync(string name, string surname, int limit);
+        public Task<List<TeacherModel>> SearchTeachersAsync(string name, string surname, int offset, int limit);
         public Task<TeacherModel> AddTeacherAsync(TeacherModel teacherModel);
         public Task<TeacherModel> RemoveTeacherAsync(TeacherModel teacherModel);
     }
@@ -37,8 +37,8 @@ namespace DaMid.Services {
             return await _context.Teachers.OrderBy(model => model.Id).Skip(offset).Take(limit).ToListAsync();
         }
 
-        public async Task<List<TeacherModel>> SearchTeachersAsync(string name, string surname, int limit) {
-            return await _context.Teachers.Where(model => EF.Functions.Like(model.Name.ToLower(), $"%{name.ToLower()}%") || EF.Functions.Like(model.Surname.ToLower(), $"%{surname.ToLower()}%")).OrderBy(model => model.Id).Take(limit).ToListAsync();
+        public async Task<List<TeacherModel>> SearchTeachersAsync(string name, string surname, int offset, int limit) {
+            return await _context.Teachers.Where(model => EF.Functions.Like(model.Name.ToLower(), $"%{name.ToLower()}%") || EF.Functions.Like(model.Surname.ToLower(), $"%{surname.ToLower()}%")).OrderBy(model => model.Id).Skip(offset).Take(limit).ToListAsync();
         }
 
         public async Task<TeacherModel> AddTeacherAsync(TeacherModel teacherModel) {
