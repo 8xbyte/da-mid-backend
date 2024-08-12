@@ -19,10 +19,10 @@ namespace DaMid.Controllers {
         }
 
         [HttpGet("search")]
-        public async Task<ActionResult> SearchSubjectsAsync(string name, int limit = 10) {
+        public async Task<ActionResult> SearchSubjectsAsync(string name, int offset = 0, int limit = 10) {
             return Ok(new {
                 Status = "ok",
-                Result = await _subjectService.SearchSubjectsAsync(name, limit)
+                Result = await _subjectService.SearchSubjectsAsync(name, offset, limit)
             });
         }
 
