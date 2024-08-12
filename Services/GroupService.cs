@@ -7,7 +7,7 @@ namespace DaMid.Services {
         public Task<GroupModel?> GetGroupByIdAsync(int id);
         public Task<GroupModel?> GetGroupByNameAsync(string name);
         public Task<List<GroupModel>> GetGroupsAsync(int offset, int limit);
-        public Task<List<GroupModel>> SearchGroupsAsync(string name, int limit);
+        public Task<List<GroupModel>> SearchGroupsAsync(string name, int offset, int limit);
         public Task<GroupModel> AddGroupAsync(GroupModel classModel);
         public Task<GroupModel> RemoveGroupAsync(GroupModel classModel);
     }
@@ -27,8 +27,8 @@ namespace DaMid.Services {
             return await _context.Groups.OrderBy(model => model.Id).Skip(offset).Take(limit).ToListAsync();
         }
 
-        public async Task<List<GroupModel>> SearchGroupsAsync(string name, int limit) {
-            return await _context.Groups.Where(model => EF.Functions.Like(model.Name.ToLower(), $"%{name.ToLower()}%")).OrderBy(model => model.Id).Take(limit).ToListAsync();
+        public async Task<List<GroupModel>> SearchGroupsAsync(string name, int offset, int limit) {
+            return await _context.Groups.Where(model => EF.Functions.Like(model.Name.ToLower(), $"%{name.ToLower()}%")).OrderBy(model => model.Id).Skip(offset).Take(limit).ToListAsync();
         }
 
         public async Task<GroupModel> AddGroupAsync(GroupModel groupModel) {
